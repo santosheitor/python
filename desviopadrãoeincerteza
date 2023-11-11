@@ -1,0 +1,37 @@
+import matplotlib.pyplot as plt
+import numpy as np
+
+# Dados
+velocidades = [0.5, 0.7, 0.88, 1.02, 1.15, 1.31, 1.53]
+
+# Índices para os pontos de dados
+indices = list(range(1, len(velocidades) + 1))
+
+# Ajustar uma linha de regressão linear
+coeficientes = np.polyfit(indices, velocidades, 1)
+reta = np.polyval(coeficientes, indices)
+
+# Calcular a incerteza (desvio padrão dos resíduos)
+residuos = np.array(velocidades) - reta
+incerteza = np.std(residuos)
+
+# Criar gráfico de dispersão
+plt.scatter(indices, velocidades, color='blue', marker='o', label='Dados')
+
+# Adicionar a reta de ajuste
+plt.plot(indices, reta, color='red', label='Reta de Ajuste')
+
+# Adicionar indicação da incerteza
+plt.fill_between(indices, reta - incerteza, reta + incerteza, color='yellow', alpha=0.3, label='Incerteza')
+
+# Adicionar rótulos e título
+plt.xlabel('Índice do Ponto de Dados')
+plt.ylabel('Velocidade (m/s)')
+plt.title('Gráfico')
+
+# Adicionar legenda
+plt.legend()
+
+# Exibir o gráfico
+plt.show()
+
